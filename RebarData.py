@@ -1,3 +1,11 @@
+# Table to define reinforcement data for different bar sizes
+# r = min bending radius
+# M = min bending diameter
+# P = required free end
+# d = actual diamater
+# lap = required lap length
+# weight = mass per unit length
+
 dims_table = {
     6: {'r': 12, 'M': 24, 'P': 110, 'd': 7, 'lap': 0.800, 'weight': 0.222},
     8: {'r': 16, 'M': 32, 'P': 115, 'd': 9, 'lap': 0.900, 'weight': 0.395},
@@ -10,7 +18,7 @@ dims_table = {
     40: {'r': 140, 'M': 280, 'P': 380, 'd': 48, 'lap': 2.000, 'weight': 9.86}
 }
 
-
+# Defines class for containing reinforcement data
 class RebarClass:
     def __init__(self, shape_code, size, dims):
         self.ShapeCode = str(shape_code)
@@ -18,7 +26,8 @@ class RebarClass:
             self.ShapeCode = '00'
         self.Size = size
         self.Dims = dims
-
+        
+  # function to check dimensions as per BS8666 requirements
     def check_dims(self):
         errors = 0
         if self.ShapeCode == '00':
@@ -60,6 +69,7 @@ class RebarClass:
 
         print(f"Check Complete: {errors} Errors Found")
 
+# function to calcualte length as per BS8666 formula
     def length(self):
         if self.ShapeCode == '00':
             return self.Dims['A']
