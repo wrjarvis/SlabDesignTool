@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-
+# Class to define a single slab
 class SlabClass:
 
+    # Initial function defines slab geometry
     def __init__(self,
                  primary_dim,
                  secondary_dim,
@@ -33,7 +34,8 @@ class SlabClass:
         self.optimisedDesign = self.optimise_design()
         self.create_rebar_designs()
         self.create_rebar_metrics()
-
+    
+    # Function to optimise the design based on a range of factors and requirements
     def optimise_design(self):
         optimisation = []
         check_demands = []
@@ -62,6 +64,7 @@ class SlabClass:
         print('Optimisation Progress: DONE')
         return optimisation
 
+    # Function to find reinforcement metrics for the slab
     def create_rebar_metrics(self):
         for optimised_design in self.optimisedDesign:
             optimised_design['Rebar Metrics'] = {}
@@ -100,6 +103,7 @@ class SlabClass:
                     'Total Bar Marks': len(total_marks)
                 }
 
+    # Function to create a set of feasible reinforcement designs
     def create_rebar_designs(self):
         for optimised_design in self.optimisedDesign:
             optimised_design['Rebar'] = {}
@@ -107,6 +111,7 @@ class SlabClass:
                 demand = optimised_design['Demand'][layer]
                 optimised_design['Rebar'][layer] = self.create_rebar_list(demand, layer)
 
+    #
     def create_rebar_list(self, demand, layer):
         rebar_list = []
         lap_gap = 0.08
